@@ -75,7 +75,9 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>fully.qualified.MainClass</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>BallesBot</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
