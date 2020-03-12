@@ -1,6 +1,5 @@
 package commands.util;
 
-import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +7,7 @@ public class PrefixesHandler {
     Map<Long, String> prefixes;
 
     String fileSeparator = System.getProperty("file.separator");
-    final String filePathPrefix = "balles-bot"+fileSeparator+"data"+fileSeparator+"prefixes.serial";
+    final String filePathPrefix ="balles-bot"+fileSeparator+"data"+fileSeparator+"prefixes.serial";
 
     public PrefixesHandler(){
 
