@@ -48,6 +48,12 @@ public class PlayCommand extends AudioCommand {
 
     @Override
     public void _execute(MessageReceivedEvent event, String stringParametros) {
+
+        if(stringParametros.isBlank()) {
+            event.getChannel().sendMessage("```Necesito algún parámetro de búsqueda```").queue();
+            return;
+        }
+
         AudioManager audioManager = event.getGuild().getAudioManager();
         if(!audioManager.isConnected()){
             try {

@@ -13,7 +13,20 @@ public class SerialFileHandler {
             outputStream.writeObject(object);
             outputStream.close();
             file.close();
-        } catch (IOException e) {
+        }  catch(FileNotFoundException e){
+            try {
+                File newFile = new File(filePath);
+                newFile.createNewFile();
+                FileOutputStream file = new FileOutputStream(newFile);
+                ObjectOutputStream outputStream = new ObjectOutputStream(file);
+                outputStream.writeObject(object);
+                outputStream.close();
+                file.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
