@@ -16,7 +16,11 @@ public class SerialFileHandler {
         }  catch(FileNotFoundException e){
             try {
                 File newFile = new File(filePath);
+                if (!newFile.getParentFile().exists())
+                    newFile.getParentFile().mkdirs();
+
                 newFile.createNewFile();
+
                 FileOutputStream file = new FileOutputStream(newFile);
                 ObjectOutputStream outputStream = new ObjectOutputStream(file);
                 outputStream.writeObject(object);
@@ -43,6 +47,9 @@ public class SerialFileHandler {
 
         } catch (FileNotFoundException e) {
             File prefixesFile = new File(filePath);
+            if (!prefixesFile.getParentFile().exists())
+                prefixesFile.getParentFile().mkdirs();
+
             try {
                 if(!prefixesFile.createNewFile()){
                     System.out.println("f");
