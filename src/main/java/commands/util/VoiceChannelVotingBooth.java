@@ -1,46 +1,43 @@
 package commands.util;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class VoiceChannelVotingBooth {
     private int currentVotes = 0;
-    private long monitoredVoiceChannelId;
+    private Set<Long> usersThatVoted = new HashSet<>();
     private int neededVotes = 0;
-
-    public VoiceChannelVotingBooth(){
-        monitoredVoiceChannelId = 0;
-    }
-    public void addVote(){
+    public void addVote(long userId, int voteTreshhold){
+        if (userHasAlreadyVoted(userId)){
+            return;
+        }
+        neededVotes = voteTreshhold;
         currentVotes++;
+        usersThatVoted.add(userId);
     }
 
     public int getCurrentVotes() {
         return currentVotes;
     }
-
     public int getNeededVotes() {
         return neededVotes;
     }
 
-    public void updateVotesIfNeeded(long voiceChannelId, double voiceChannelMemberCount){
-
-        if(monitoredVoiceChannelId != voiceChannelId){
-            currentVotes = 0;
-            monitoredVoiceChannelId = voiceChannelId;
-        }
-
-        neededVotes = (int) Math.ceil(voiceChannelMemberCount/2);
-
-
-    }
 
     public void resetBooth(){
         currentVotes = 0;
+        usersThatVoted.clear();
     }
 
-    public  boolean votingCompleted(){
+    public  boolean votingComplete(){
         if(neededVotes == 0){
             return false;
         }
 
         return (currentVotes >= neededVotes);
+    }
+
+    public boolean userHasAlreadyVoted(long userId){
+        return usersThatVoted.contains(userId);
     }
 }

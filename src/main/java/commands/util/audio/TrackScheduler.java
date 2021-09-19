@@ -39,7 +39,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        messageChannel.sendMessage(":musical_note: **Ahora reproduciendo**:").embed(displayTrackInfo(track)).queue();
+        messageChannel.sendMessage(":musical_note: **Ahora reproduciendo**:").setEmbeds(displayTrackInfo(track)).queue();
         autoDisconnectTimer.parar();
         // A track started playing
     }
@@ -63,18 +63,22 @@ public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
         messageChannel.sendMessage("```Hubo un error con el audio: "+track.getInfo().title+"```").queue();
+        System.out.println("cama arriba");
+        playTrackIfAvailable(player);
+        exception.printStackTrace();
     }
 
     @Override
     public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
         messageChannel.sendMessage("```Hubo un error con el audio: "+track.getInfo().title+"```").queue();
+        System.out.println("cama abajo");
         playTrackIfAvailable(player);
     }
 
     public void addTrack(AudioTrack audioTrack, MessageChannel aMessageChannel){
         messageChannel = aMessageChannel;
         audioTrackQueue.addLast(audioTrack);
-        this.messageChannel.sendMessage(":ok: **Agregado con éxito: **").embed(displayTrackInfo(audioTrack)).queue();
+        this.messageChannel.sendMessage(":ok: **Agregado con éxito: **").setEmbeds(displayTrackInfo(audioTrack)).queue();
     }
 
     public void addPlaylist(AudioPlaylist playlist, MessageChannel aMessageChannel){

@@ -27,5 +27,6 @@ public abstract class CustomAudioLoadResultHandler implements AudioLoadResultHan
     @Override
     public void loadFailed(FriendlyException e) {
         channel.sendMessage("``` No se pudo cargar el audio pedido. ```").queue();
+        e.printStackTrace();
     }
 }

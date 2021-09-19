@@ -49,7 +49,7 @@ public class AlbertoCommand extends Command {
         String texto = tweets.peekFirst();
 
 
-        event.getChannel().sendMessage(embedBuilder.setAuthor("Alberto Fernández(@alferdez)", "https://twitter.com/alferdez")
+        event.getChannel().sendMessageEmbeds(embedBuilder.setAuthor("Alberto Fernández(@alferdez)", "https://twitter.com/alferdez")
                         .setDescription(texto)
                         .setFooter("Twitter")
                         .setColor(Color.CYAN).build()).queue();

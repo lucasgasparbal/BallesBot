@@ -8,8 +8,8 @@ public class PauseCommand extends AudioCommand {
 
     public PauseCommand(AudioPlayerSendManager anAudioPlayerSendManager) {
         super(anAudioPlayerSendManager);
-        names = new String[]{"pause"};
-        description = "pausa el reproductor de sonidos del bot";
+        names = new String[]{"pause","resume"};
+        description = "pausa el reproductor de sonidos del bot. Si el reproductor ya fue pausado lo despausa.";
     }
 
     @Override

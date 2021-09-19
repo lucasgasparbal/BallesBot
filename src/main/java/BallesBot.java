@@ -25,7 +25,7 @@ public class BallesBot extends ListenerAdapter {
     AudioPlayerSendManager audioPlayerSendManager = new AudioPlayerSendManager();
     private Map<String, Command> commands = new HashMap<>();
     public static void main(String[] args) throws LoginException{
-        JDA jda = new JDABuilder(args[0]).build();
+        JDA jda = JDABuilder.createDefault(args[0]).build();
         jda.addEventListener(new BallesBot());
     }
 

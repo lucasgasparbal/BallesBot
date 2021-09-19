@@ -11,6 +11,7 @@ import commands.util.VoiceChannelVotingBooth;
 import commands.util.audio.search.GuildAudioSearchs;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -23,6 +24,7 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
     private TrackScheduler trackScheduler;
     private AudioFrame lastFrame;
     private GuildAudioSearchs guildAudioSearchs = new GuildAudioSearchs();
+    private Long currentVoiceChannelId = 0L;
     VoiceChannelVotingBooth skipVotingBooth = new VoiceChannelVotingBooth();
 
     public AudioPlayerSendHandler(AudioPlayer audioPlayer, MessageChannel messageChannel, Temporizador autoDisconnectTimer) {
@@ -74,7 +76,7 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
         trackScheduler.clearQueue();
     }
 
-    public void skipTrack(MessageChannel messageChannel, boolean callingUserIsAdmin,long voiceChannelId, double usersOnChannel){
+    public void skipTrack(MessageChannel messageChannel, boolean callingUserIsAdmin,long voiceChannelId, long userId, double usersOnChannel){
 
 
         trackScheduler.updateMessageChannel(messageChannel);
@@ -84,20 +86,24 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
         if(playingTrack == null){
             messageChannel.sendMessage("```No estoy transmitiendo en estos momentos.```").queue();
         }else{
-            int skipVotesNeeded = (int) Math.ceil(usersOnChannel/2);
-            skipVotingBooth.updateVotesIfNeeded(voiceChannelId,skipVotesNeeded);
 
-                if(!audioTrackPlayedToBeSkippedIdentifier.equals(playingTrack.getIdentifier())){
+            int skipVotesNeeded = (int) Math.ceil((usersOnChannel-1)/2);
+
+            if(!audioTrackPlayedToBeSkippedIdentifier.equals(playingTrack.getIdentifier()) | voiceChannelId != currentVoiceChannelId){
                 skipVotingBooth.resetBooth();
                 audioTrackPlayedToBeSkippedIdentifier = playingTrack.getIdentifier();
-                }
-
+                currentVoiceChannelId = voiceChannelId;
+            }
             if(!callingUserIsAdmin){
-                skipVotingBooth.addVote();
+                if(skipVotingBooth.userHasAlreadyVoted(userId)){
+                    messageChannel.sendMessage("```ya votaste kpo.```").queue();
+                    return;
+                }
+                skipVotingBooth.addVote(userId,skipVotesNeeded);
 
             }
 
-            if(callingUserIsAdmin || skipVotingBooth.votingCompleted() ){
+            if(callingUserIsAdmin || skipVotingBooth.votingComplete() ){
                 messageChannel.sendMessage(":next_track: **REPRODUCCION OMITIDA.**").queue();
                 audioPlayer.stopTrack();
                 skipVotingBooth.resetBooth();
@@ -139,7 +145,7 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
             addTrackToPlayerQueue(guildAudioSearchs.getSearchResultForUser(memberId, trackIndex),messageChannel);
 
         }catch(NumberFormatException e){
-            if(messageContent.strip().equalsIgnoreCase("cancel")){
+            if(messageContent.strip().equalsIgnoreCase(CancelString)){
                 guildAudioSearchs.destroySearch(memberId);
                 messageChannel.sendMessage(":no_entry_sign:**BUSQUEDA CANCELADA**:no_entry_sign:").queue();
             }

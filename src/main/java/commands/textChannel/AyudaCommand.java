@@ -13,7 +13,7 @@ public class AyudaCommand extends Command {
     Set<Command> musicCommandSet = new LinkedHashSet<>();
 
     public AyudaCommand(Collection<Command> commands){
-        names = new String[]{"ayuda"};
+        names = new String[]{"ayuda","help","commands"};
         description = "";
 
         List<Command> sortList = new LinkedList<>(commands);

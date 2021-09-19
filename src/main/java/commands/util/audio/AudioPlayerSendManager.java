@@ -13,6 +13,7 @@ import commands.util.Temporizador;
 import commands.util.TimeFormat;
 import commands.util.audio.search.GuildAudioSearchs;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
@@ -169,8 +170,13 @@ public class AudioPlayerSendManager {
 
     public void skipTrackForServerOfEvent(MessageReceivedEvent event, int currentVoiceChannelMembers){
         Member callingMember = event.getMember();
+        GuildChannel guildChannel = event.getGuild().getDefaultChannel();
         VoiceChannel voiceChannel = event.getGuild().getAudioManager().getConnectedChannel();
-        getAudioPlayerSendHandlerForServerOfEvent(event).skipTrack(event.getChannel(),callingMember.hasPermission(Permission.MANAGE_SERVER),voiceChannel.getIdLong(),currentVoiceChannelMembers);
+        getAudioPlayerSendHandlerForServerOfEvent(event).skipTrack(event.getChannel(),memberIsDJ(callingMember),voiceChannel.getIdLong(),callingMember.getIdLong(),currentVoiceChannelMembers);
+    }
+
+    private boolean memberIsDJ(Member member){
+        return member.hasPermission(Permission.MANAGE_SERVER) || member.hasPermission(Permission.VOICE_MUTE_OTHERS);
     }
 
     public void pausePlayerForServerOfEvent(MessageReceivedEvent event){
