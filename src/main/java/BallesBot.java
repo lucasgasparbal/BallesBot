@@ -24,10 +24,7 @@ public class BallesBot extends ListenerAdapter {
     PrefixesHandler prefixesHandler = new PrefixesHandler();
     AudioPlayerSendManager audioPlayerSendManager = new AudioPlayerSendManager();
     private Map<String, Command> commands = new HashMap<>();
-    public static void main(String[] args) throws LoginException{
-        JDA jda = JDABuilder.createDefault(args[0]).build();
-        jda.addEventListener(new BallesBot());
-    }
+
 
     private void  mapCommand(Command command){
         for(String name : command.getNames()){

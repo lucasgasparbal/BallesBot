@@ -60,7 +60,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>BallesBot</mainClass>
+                            <mainClass>BallesBotMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
