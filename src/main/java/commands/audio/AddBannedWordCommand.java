@@ -11,7 +11,7 @@ public class AddBannedWordCommand extends AudioCommand {
         clearenceLevelComponent = new AdminLevelComponent();
         names = new String[]{"banword", "ban"};
         description = "Bloquea a la palabra o oración dada para que el reproductor no tenga en cuenta audios relacionados a esta.";
-        parameters = new String[]{"texto a banear"};
+        parameters = new String[]{"<texto a banear>"};
 
     }
 

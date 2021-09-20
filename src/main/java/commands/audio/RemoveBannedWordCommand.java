@@ -13,7 +13,7 @@ public class RemoveBannedWordCommand extends  AudioCommand{
         clearenceLevelComponent = new AdminLevelComponent();
         names = new String[]{"unbanword", "unban"};
         description = "Elimina al texto parámetro de la lista de palabras baneadas para el reproductor de audio";
-        parameters = new String[]{"texto a desbanear"};
+        parameters = new String[]{"<texto a desbanear>"};
 
     }
 
