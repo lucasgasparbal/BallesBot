@@ -14,7 +14,7 @@ public class AlbertoCommand extends Command {
     InputStream imagenAlberto;
     InputStream imagenLogoTwitter;
     public AlbertoCommand(){
-        names = new String[]{"alberto"};
+        names = new String[]{"alberto","presidente"};
         description = "Algunas palabras del actual presidente de la nación.";
          ClassLoader cargadorRecursos  = Thread.currentThread().getContextClassLoader();
          imagenAlberto =  cargadorRecursos.getResourceAsStream("imagenes/Alberto.jpg");

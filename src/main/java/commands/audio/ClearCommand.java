@@ -8,7 +8,7 @@ public class ClearCommand extends AudioCommand {
 
     public ClearCommand(AudioPlayerSendManager anAudioPlayerSendManager) {
         super(anAudioPlayerSendManager);
-        names = new String[]{ "clearqueue","clear"};
+        names = new String[]{ "clearqueue","clear","limpiar"};
         description = "elimina todos los audios restantes de la cola de reproducción";
 
 

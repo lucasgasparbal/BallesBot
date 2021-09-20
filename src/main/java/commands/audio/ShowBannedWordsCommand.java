@@ -10,7 +10,7 @@ public class ShowBannedWordsCommand extends AudioCommand{
 
     public ShowBannedWordsCommand(AudioPlayerSendManager anAudioPlayerSendManager) {
         super(anAudioPlayerSendManager);
-        names = new String[]{"bannedwords"};
+        names = new String[]{"bannedwords","banlist","banned"};
         description = "Muestra las palabras baneadas en este servidor";
     }
 

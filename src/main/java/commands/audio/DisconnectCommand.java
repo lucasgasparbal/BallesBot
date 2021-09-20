@@ -12,7 +12,7 @@ public class DisconnectCommand extends AudioCommand{
     public DisconnectCommand(AudioPlayerSendManager audioPlayerSendManager) {
         super(audioPlayerSendManager);
         clearenceLevelComponent = new AdminLevelComponent();
-        names = new String[]{"disconnect"};
+        names = new String[]{"disconnect", "dc"};
         description = "Desconecta al bot del canal de voz.";
     }
 

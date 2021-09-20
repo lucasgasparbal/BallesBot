@@ -19,7 +19,7 @@ public class SaludoCommand extends Command {
     private boolean yaSaludo =  false;
 
     public SaludoCommand(){
-        names = new String[]{"saludo"};
+        names = new String[]{"saludo","hola"};
         description = "BALLES-BOT saluda si tiene ganas.";
 
     }

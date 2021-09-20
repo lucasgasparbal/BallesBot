@@ -7,7 +7,7 @@ public class ShowQueueCommand extends  AudioCommand {
 
     public ShowQueueCommand(AudioPlayerSendManager anAudioPlayerSendManager) {
         super(anAudioPlayerSendManager);
-        names = new String[]{"showqueue", "queue"};
+        names = new String[]{"showqueue", "queue","lista"};
         description = "Muestra los próximos audios en la lista de reproducción";
     }
 

@@ -110,7 +110,7 @@ public class BallesBot extends ListenerAdapter {
 
         if(commands.get(splitText[0].toLowerCase()) == null){
 
-            messageChannel.sendMessage("`Comando` \""+splitText[0]+"\" `Inválido. Utilizar el comando ayuda para ver una lista de los comandos disponibles.`").queue();
+            messageChannel.sendMessage("`Comando` \""+splitText[0]+"\" `Inválido. Utilizar \""+ serverPrefix +"ayuda\" para ver una lista de los comandos disponibles.`").queue();
 
         }else{
 

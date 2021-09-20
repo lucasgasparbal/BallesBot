@@ -11,7 +11,7 @@ public class PrefixCommand extends Command {
 
     public PrefixCommand(PrefixesHandler aPrefixesHandler){
         clearenceLevelComponent = new AdminLevelComponent();
-        names = new String[]{"prefijo"};
+        names = new String[]{"prefijo","prefix","setprefix"};
         description = "cambia el prefijo utilizado en el servidor para acceder a los comandos del bot. Para saber el prefijo en el servidor mencionar al bot(@BALLES-BOT)";
         parameters = new String[]{"<nuevo prefijo>"};
         prefixesHandler = aPrefixesHandler;
