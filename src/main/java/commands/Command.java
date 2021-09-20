@@ -53,7 +53,7 @@ public abstract class Command {
             }
             returnString.append(name).append(" ").append(stringParameters);
             if(namesIterator.hasNext()){
-                returnString.append(" ||  ");
+                returnString.append(" |   ");
             }
         }
 
