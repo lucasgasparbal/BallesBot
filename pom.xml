@@ -91,7 +91,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.lucasballester.BallesBot</mainClass>
+                            <mainClass>BallesBotMain</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
