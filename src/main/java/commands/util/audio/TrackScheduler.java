@@ -89,6 +89,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
     private void playTrackIfAvailable(AudioPlayer player){
         if(!audioTrackQueue.isEmpty()){
+            autoDisconnectTimer.parar();
             player.playTrack(audioTrackQueue.pollFirst());
         }else{
             autoDisconnectTimer.empezar();

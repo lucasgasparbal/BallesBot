@@ -176,6 +176,11 @@ public class AudioPlayerSendManager {
     }
 
     private boolean memberIsDJ(Member member){
+        for(Permission permission : member.getPermissions()){
+            if(permission.getName().strip().toLowerCase().equals("dj")){
+                return true;
+            }
+        }
         return member.hasPermission(Permission.MANAGE_SERVER) || member.hasPermission(Permission.VOICE_MUTE_OTHERS);
     }
 
