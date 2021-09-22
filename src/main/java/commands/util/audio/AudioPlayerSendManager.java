@@ -1,5 +1,6 @@
 package commands.util.audio;
 
+import Exceptions.audio.NotConnectedToVoiceChannelException;
 import Exceptions.audio.WordAlreadyBannedInGuildException;
 import Exceptions.audio.WordNotBannedInGuildException;
 import Exceptions.audio.search.NoTrackOnIndexException;
@@ -47,7 +48,7 @@ public class AudioPlayerSendManager {
     private AudioPlayerSendHandler getAudioPlayerSendHandlerForServerOfEvent(MessageReceivedEvent event){
         Long serverId = event.getGuild().getIdLong();
         if(!serverPlayerHandlers.containsKey(serverId)){
-            Temporizador autoDisconnecTimer = new Temporizador(DelayForAutoDisconnect,()->autoDisconnectFromGuild(event.getGuild().getAudioManager()));
+            Temporizador autoDisconnecTimer = new Temporizador(DelayForAutoDisconnect,()->autoDisconnectFromGuild(event.getGuild().getAudioManager(), serverId));
             serverPlayerHandlers.put(serverId, new AudioPlayerSendHandler(audioPlayerManager.createPlayer(),event.getChannel(),autoDisconnecTimer));
         }
         return serverPlayerHandlers.get(serverId);
@@ -256,14 +257,25 @@ public class AudioPlayerSendManager {
         return serverPlayerBannedWords.getGuildBannedWords(guildId);
     }
 
-    public void autoDisconnectFromGuild(AudioManager audioManager){
+    public void autoDisconnectFromGuild(AudioManager audioManager, Long serverId){
         if(audioManager.isConnected()){
-            audioManager.closeAudioConnection();
-            System.out.println("doh!");
+            disconnectManagerAndHandler(audioManager, serverPlayerHandlers.get(serverId));
+            System.out.println("autodisconnect");
         }
     }
 
-    public void disconnectHandlerForEvent(MessageReceivedEvent event) {
-        getAudioPlayerSendHandlerForServerOfEvent(event).disconnectStop();
+    public void disconnectFromVoiceChannel(AudioManager audioManager, MessageReceivedEvent event) throws NotConnectedToVoiceChannelException {
+        if(audioManager.isConnected()){
+            disconnectManagerAndHandler(audioManager,getAudioPlayerSendHandlerForServerOfEvent(event));
+        }else{
+            throw new NotConnectedToVoiceChannelException();
+        }
+
+    }
+
+    private void disconnectManagerAndHandler(AudioManager audioManager, AudioPlayerSendHandler audioPlayerSendHandler){
+        audioManager.closeAudioConnection();
+        audioPlayerSendHandler.disconnectStop();
     }
 }
+

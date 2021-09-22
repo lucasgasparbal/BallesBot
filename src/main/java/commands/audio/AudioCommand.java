@@ -29,15 +29,7 @@ public abstract class AudioCommand extends Command {
         }
     }
 
-    protected void disconnectFromVoiceChannel(AudioManager audioManager, MessageReceivedEvent event) throws NotConnectedToVoiceChannelException {
-        if(audioManager.isConnected()){
-            audioManager.closeAudioConnection();
-            audioPlayerSendManager.disconnectHandlerForEvent(event);
-        }else{
-            throw new NotConnectedToVoiceChannelException();
-        }
 
-    }
 
     public boolean isAudioCommand(){ return true; }
 

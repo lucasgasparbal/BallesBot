@@ -63,7 +63,7 @@ public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
         messageChannel.sendMessage("```Hubo un error con el audio: "+track.getInfo().title+"```").queue();
-        System.out.println("cama arriba");
+        System.out.println("error excepcion");
         playTrackIfAvailable(player);
         exception.printStackTrace();
     }
@@ -71,7 +71,7 @@ public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
         messageChannel.sendMessage("```Hubo un error con el audio: "+track.getInfo().title+"```").queue();
-        System.out.println("cama abajo");
+        System.out.println("error stuck");
         playTrackIfAvailable(player);
     }
 

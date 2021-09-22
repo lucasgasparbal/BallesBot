@@ -28,29 +28,23 @@ public class Temporizador {
     }
 
     public void empezar(){
-        contando = true;
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(0);
-        executorService.schedule(tarea,segundosDelay, TimeUnit.SECONDS);
-        activeExecutorService = executorService;
-        ScheduledExecutorService analizadorTiempo = Executors.newScheduledThreadPool(0);
-        activeAnalizadorTiempo = analizadorTiempo;
-        analizadorTiempo.schedule(this::terminarConteo,segundosDelay,TimeUnit.SECONDS);
+        if(!contando) {
+            ScheduledExecutorService executorService = Executors.newScheduledThreadPool(0);
+            executorService.schedule(tarea, segundosDelay, TimeUnit.SECONDS);
+            activeExecutorService = executorService;
+            ScheduledExecutorService analizadorTiempo = Executors.newScheduledThreadPool(0);
+            activeAnalizadorTiempo = analizadorTiempo;
+            analizadorTiempo.schedule(this::terminarConteo, segundosDelay, TimeUnit.SECONDS);
+            contando = true;
+        }
     }
 
     public void parar(){
-        if(activeExecutorService != null){
+        if(contando){
             activeExecutorService.shutdownNow();
-            activeExecutorService = null;
-        }
-
-        if(activeAnalizadorTiempo != null){
             activeAnalizadorTiempo.shutdownNow();
-            activeAnalizadorTiempo = null;
+            contando = false;
         }
 
-    }
-
-    public boolean estaContando(){
-        return contando;
     }
 }

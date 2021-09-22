@@ -22,7 +22,7 @@ public class DisconnectCommand extends AudioCommand{
         AudioManager guildAudioManager = event.getGuild().getAudioManager();
 
         try {
-            disconnectFromVoiceChannel(guildAudioManager,event);
+            audioPlayerSendManager.disconnectFromVoiceChannel(guildAudioManager,event);
         } catch (NotConnectedToVoiceChannelException e) {
             event.getChannel().sendMessage("```No estoy conectado a ningún canal de voz```").queue();
         }
