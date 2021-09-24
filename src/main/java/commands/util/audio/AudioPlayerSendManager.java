@@ -14,10 +14,7 @@ import commands.util.Temporizador;
 import commands.util.TimeFormat;
 import commands.util.audio.search.GuildAudioSearchs;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.GuildChannel;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 
@@ -177,8 +174,9 @@ public class AudioPlayerSendManager {
     }
 
     private boolean memberIsDJ(Member member){
-        for(Permission permission : member.getPermissions()){
-            if(permission.getName().strip().toLowerCase().equals("dj")){
+        for(Role role : member.getRoles()){
+            String roleName = role.getName().strip();
+            if(roleName.equals("DJ")){
                 return true;
             }
         }
